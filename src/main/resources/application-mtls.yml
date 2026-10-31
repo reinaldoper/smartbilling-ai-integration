@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: mtls
+
+server:
+  ssl:
+    enabled: true
+    key-store: file:${TLS_KEYSTORE:./certs/server.p12}
+    key-store-password: ${TLS_KEYSTORE_PASSWORD:changeit}
+    key-store-type: PKCS12
+    trust-store: file:${TLS_TRUSTSTORE:./certs/truststore.p12}
+    trust-store-password: ${TLS_TRUSTSTORE_PASSWORD:changeit}
+    trust-store-type: PKCS12
+    client-auth: need

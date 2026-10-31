@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: smartbilling-ai-integration
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/smartbilling}
+    username: ${DB_USERNAME:smartbilling}
+    password: ${DB_PASSWORD:smartbilling_dev}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:smartbilling}
+    password: ${RABBITMQ_PASSWORD:smartbilling_dev}
+  ai:
+    mcp:
+      server:
+        name: smartbilling-mcp
+        version: 1.0.0
+        type: SYNC
+        protocol: STREAMABLE
+        annotation-scanner:
+          enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+app:
+  outbox:
+    fixed-delay-ms: 3000
+    batch-size: 20
+  conversation:
+    ttl-minutes: 120
+
+logging:
+  level:
+    br.com.reinaldodev.smartbilling: INFO

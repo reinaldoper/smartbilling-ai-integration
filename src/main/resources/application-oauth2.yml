@@ -1,0 +1,10 @@
+spring:
+  config:
+    activate:
+      on-profile: oauth2
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Configure com o issuer do seu provedor (Keycloak, Auth0, Entra ID etc.).
+          issuer-uri: ${OAUTH_ISSUER_URI}
